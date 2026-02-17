@@ -38,7 +38,7 @@ function Login() {
         }
         
         if (type !== "invalid") {
-            localStorage.setItem("user", JSON.stringify(userData))
+            login(userData)  //localStorage.setItem("user", JSON.stringify(userData))
             navigate("/profile")
         }
     }
