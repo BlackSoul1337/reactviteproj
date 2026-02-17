@@ -4,27 +4,27 @@ import Home from '../pages/home'
 import Login from '../pages/login'
 import Profile from '../pages/profile'
 import PrivateRoute from './PrivateRoute'
+import MainLayout from '../layouts/MainLayout'
+
+//  23 seconds to midnight Font НА ПОТОМ
 
 function AppRouter() {
   return (
     <div>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/login">Login</NavLink>
-      </nav>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<Login/>} />
 
-        <Route
-            path="/profile"
-            element={
-                <PrivateRoute>
-                    <Profile />
-                </PrivateRoute>
-            }
-        />
-        
+          <Route
+              path="profile"
+              element={
+                  <PrivateRoute>
+                      <Profile />
+                  </PrivateRoute>
+              }
+          />
+        </Route>
       </Routes>
     </div>
   )
