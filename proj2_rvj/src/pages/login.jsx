@@ -76,6 +76,10 @@ function Login() {
             />
             <button type="submit">delaem</button>
         </form>
+
+        <div>
+            <img src='https://avatars.mds.yandex.net/i?id=bcf2ef6fd8cee5ef58883591f7d83c2e01c19bc0-12753003-images-thumbs&n=13' />
+        </div>
     </div>
   )
 }

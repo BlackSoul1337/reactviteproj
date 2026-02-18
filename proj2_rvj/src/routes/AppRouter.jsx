@@ -6,6 +6,7 @@ import Profile from '../pages/profile'
 import PrivateRoute from './PrivateRoute'
 import MainLayout from '../layouts/MainLayout'
 import Events from '../pages/events'
+import EventDetail from '../components/EventDetail'
 
 //  23 seconds to midnight Font НА ПОТОМ
 
@@ -17,6 +18,7 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/events" element={<Events/>} />
+          <Route path="/events/:id" element={<EventDetail />} />
 
           <Route
               path="profile"
