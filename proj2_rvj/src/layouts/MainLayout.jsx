@@ -6,29 +6,63 @@ function MainLayout() {
 
     const {user, logout} = useContext(AuthContext)
 
-  return (
-    <div>
+    return (
+        <div className="p5-page-wrapper">
         <header>
-            <nav>
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/events">Events</NavLink>
+            <nav className="p5-nav-container">
+            <div className="main-menu">
+                <div className="nav-item-wrapper">
+                <div className="nav-background"></div>
+                <NavLink to="/">Главная</NavLink>
+                </div>
+                <div className="nav-item-wrapper">
+                <div className="nav-background"></div>
+                <NavLink to="/events">Мероприятия</NavLink>
+                </div>
+                <div className="nav-item-wrapper">
+                <div className="nav-background"></div>
+                <NavLink to="/about">Обо мне</NavLink>
+                </div>
+            </div>
 
-                {!user && <NavLink to="/login">Login</NavLink>}
-                {!user && <NavLink to="/registration">Registration</NavLink>}
-                {user && <NavLink to="/profile">Profile</NavLink>}
+            <div className="auth-menu">
+                {!user ? (
+                <>
+                    <div className="nav-item-wrapper auth-item-paper">
+                    <div className="nav-background"></div>
+                    <NavLink to="/login">Логин</NavLink>
+                    </div>
+                    <div className="nav-item-wrapper auth-item-paper">
+                    <div className="nav-background"></div>
+                    <NavLink to="/registration">Регистрация</NavLink>
+                    </div>
+                </>
+                ) : (
+                <>
+                    <div className="nav-item-wrapper secondary">
+                    <div className="nav-background"></div>
+                    <NavLink to="/bookings">Бронирование</NavLink>
+                    </div>
+                    <div className="nav-item-wrapper secondary">
+                    <div className="nav-background"></div>
+                    <NavLink to="/profile">Профиль</NavLink>
+                    </div>
+                </>
+                )}
+            </div>
             </nav>
         </header>
 
-        <main>
+        <main className="p5-main-content">
             <Outlet />
         </main>
 
-        <footer>
-            <p>Footer</p>
+        <footer className="p5-footer">
+            <div className="footer-line"></div>
+            <p>© хайп девелопмент</p>
         </footer>
-
-    </div>
-  )
+        </div>
+    )
 }
 
 export default MainLayout

@@ -26,32 +26,27 @@ function AuthProvider({children}) {
         navigate("/login")
     }
 
-    const toggleBooking = (eventId) => {
+    const toggleBookings = (eventId) => {
         setBookings((prev) => {
-            if (prev.includes(eventId)) {
-                return prev.filter(id => id !== eventId)
-            } else {
-                return [...prev, eventId]
-            }
+            const updated = prev.includes(eventId)
+                ? prev.filter(id => id !== eventId)
+                : [...prev, eventId]
+            localStorage.setItem(`bookings_${user.login}`, JSON.stringify(updated))
+            return updated
         })
     }
 
     useEffect(() => {
         if (user) {
-            localStorage.setItem(`bookings_${user.login}`, JSON.stringify(bookings))
-        }
-    }, [bookings, user])
-
-    useEffect(() => {
-        if (user) {
             const saved = localStorage.getItem(`bookings_${user.login}`)
+            if (saved) {setBookings(JSON.parse(saved))} else {setBookings([])}
         } else {
             setBookings([])
         }
     }, [user])
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, bookings, toggleBooking }}>
+    <AuthContext.Provider value={{ user, login, logout, bookings, toggleBookings }}>
         {children}
     </AuthContext.Provider>
   )

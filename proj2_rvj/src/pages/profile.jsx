@@ -7,23 +7,16 @@ function Profile() {
   const { user, logout } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  // const rawData = localStorage.getItem("user")
-  // const user = rawData ? JSON.parse(rawData) : null
   if (!user) {
     return null
   }
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem("user")
-
-  //   navigate("/login")
-  // }
   return (
     <div>
-      <h1>PROFILE</h1>
+      <h1>Профиль</h1>
       <div>
-        <p>User : {user.username || user.login}</p> {/* user?.login */}
-        <p>Type : {user.type}</p>
+        <p>Пользователь : {user.username || user.login}</p> {/* user?.login */}
+        <p>Тип : {user.type}</p>
       </div>
       <button onClick={logout}>logout</button>
     </div>

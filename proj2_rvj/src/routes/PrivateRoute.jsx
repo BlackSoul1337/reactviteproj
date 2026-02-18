@@ -4,8 +4,6 @@ import { AuthContext } from '../context/AuthContext'
 
 function PrivateRoute({children}) {
     const {user} = useContext(AuthContext)
-    // const rawUser = localStorage.getItem("user") // na potom: JSON.stringify(obj) JSON.parse(string)
-    // const user = JSON.parse(rawUser)
 
     if (user) {
         return children;

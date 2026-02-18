@@ -8,8 +8,8 @@ import MainLayout from '../layouts/MainLayout'
 import Events from '../pages/events'
 import EventDetail from '../components/EventDetail'
 import Registration from '../pages/registration'
-
-//  23 seconds to midnight Font НА ПОТОМ
+import Bookings from '../pages/bookings'
+import About from '../pages/about'
 
 function AppRouter() {
   return (
@@ -19,6 +19,8 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/about" element={<About />} />
           <Route path="/events" element={<Events/>} />
           <Route path="/events/:id" element={<EventDetail />} />
 
@@ -27,6 +29,7 @@ function AppRouter() {
               element={
                   <PrivateRoute>
                       <Profile />
+                      <Bookings />
                   </PrivateRoute>
               }
           />

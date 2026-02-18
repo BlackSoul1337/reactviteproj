@@ -6,9 +6,11 @@
 
 <h3 align="center">Бронирование мероприятий</h3>
   <p align="center">
-    Сайт для бронирования и просмотра мероприятий. ...
+    Платформа для бронирования и просмотра мероприятий. Адаптивный UI, хранение данных в localstorage без backend, семантическая структура, понятный UX. React: useState, useEffect, useContext, PrivateRoute, фильтрация, поиск.
     <br />
-    <p>Страницы: home, events, profile, login, registration</p>
+    <p>Страницы: home, events, bookings, about, profile, login, registration</p>
+    <p>Дизайн вдохновлен UI Persona 5: </P>
+    <img src="https://i.pinimg.com/originals/02/77/9f/02779f6974f3c479852ed2ec16abccf3.gif">
     <br />
     <p>Технологии:</p>
     <img src="https://skillicons.dev/icons?i=react,nodejs,vite">

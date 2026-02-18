@@ -9,17 +9,17 @@ function EventDetail() {
     const event = events.find(e => e.id === Number(id))
 
     if (!event) {
-        return <h2>Not Found</h2>
+        return <h2>Не найдено</h2>
     }
 
   return (
     <div>
         <h1>{event.title}</h1>
-        <p>Category: {event.category}</p>
-        <p>Description: {event.description}</p>
-        <p>Date: {event.date}</p>
-        <p>Price: {event.price === 0 ? "Free" : `${event.price}`}</p>
-        <button onClick={() => navigate("/events")}>Back</button>
+        <p>Категория: {event.category}</p>
+        <p>Описание: {event.description}</p>
+        <p>Дата: {event.date}</p>
+        <p>Цена: {event.price === 0 ? "Бесплатно" : `${event.price}`}</p>
+        <button onClick={() => navigate("/events")}>Назад</button>
     </div>
   )
 }
