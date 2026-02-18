@@ -14,6 +14,7 @@ function MainLayout() {
                 <NavLink to="/events">Events</NavLink>
 
                 {!user && <NavLink to="/login">Login</NavLink>}
+                {!user && <NavLink to="/registration">Registration</NavLink>}
                 {user && <NavLink to="/profile">Profile</NavLink>}
             </nav>
         </header>

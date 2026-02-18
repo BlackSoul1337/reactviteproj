@@ -12,9 +12,9 @@ function Login() {
         password: ""
     })
 
-    // const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({})
 
-    const handleChange = (e) => {
+    const handleChange = (e) => { // state lifting
         const {name, value} = e.target
         setFormData(prev => ({
             ...prev,
@@ -24,40 +24,72 @@ function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        console.log(formData)
-        const type = validate(formData.login)
+        const validationErrors = validate()
+        setErrors(validationErrors)
 
-        if (type === "invalid") {
-            return
-        }
+        if (Object.keys(validationErrors).length === 0) {
+            const savedUser = JSON.parse(localStorage.getItem("registeredUser"))
 
-        const userData = {
-            login: formData.login,
-            type: type,
-            token: "a123"
-        }
-        
-        if (type !== "invalid") {
-            login(userData)  //localStorage.setItem("user", JSON.stringify(userData))
+            const userData = {
+                login: savedUser.username,
+                type: savedUser.type,
+                token: "a123"
+            }
+            login(userData)
             navigate("/profile")
         }
+
+        // console.log(formData) // удалить
+        // const type = validate(formData.login)
+
+        // if (type === "invalid") {
+        //     return
+        // }
+
+        // const userData = {
+        //     login: formData.login,
+        //     type: type,
+        //     token: "a123"
+        // }
+        
+
+        // if (type !== "invalid") {
+        //     login(userData)  //localStorage.setItem("user", JSON.stringify(userData))
+        //     navigate("/profile")
+        // }
+
     }
 
 
-    const validate = (value) => {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ 
-        const phoneRegex = /^(8|\+7)(\s|\(|-)?(\d{3})(\s|\)|-)?(\d{3})(\s|-)?(\d{2})(\s|-)?(\d{2})$/
+    const validate = () => {
+        let newErrors = {}
+        const savedUser = JSON.parse(localStorage.getItem("registeredUser"))
+        const trimmedLogin = formData.login.trim()
+        if (!trimmedLogin) {
+            newErrors.login = "Login is required"
+        }
+        if (!savedUser) {
+            newErrors.login = "User not found"
+        } else if (savedUser.username !== formData.login && savedUser.email !== formData.login && savedUser.phone !== formData.login) {
+            newErrors.login = "Incorrect login"
+        } else if (savedUser.password !== formData.password) {
+            newErrors.password = "Wrong password"
+        }
 
-        if(emailRegex.test(value)) return "email"
-        if(phoneRegex.test(value)) return "phone"
-        if(value.length >= 3) return "username"
-        return "invalid"
+        return newErrors
+        // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ 
+        // const phoneRegex = /^(8|\+7)(\s|\(|-)?(\d{3})(\s|\)|-)?(\d{3})(\s|-)?(\d{2})(\s|-)?(\d{2})$/
+
+        // if(emailRegex.test(value)) return "email"
+        // if(phoneRegex.test(value)) return "phone"
+        // if(value.length >= 3) return "username"
+        // return "invalid"
     }
 
   return (
     <div>
         <form onSubmit={handleLogin}>
-            <h2>Auth</h2>
+            <h2>Login</h2>
             <input 
                 type="text"
                 placeholder='E U P'
@@ -66,6 +98,7 @@ function Login() {
                 onChange={handleChange}
                 required
             />
+            {errors.login && <p>{errors.login}</p>}
             <input 
                 type="password"
                 name="password"
@@ -74,6 +107,7 @@ function Login() {
                 onChange={handleChange}
                 required
             />
+            {errors.password && <p>{errors.password}</p>}
             <button type="submit">delaem</button>
         </form>
 

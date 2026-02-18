@@ -6,7 +6,7 @@ function EventDetail() {
 
     const navigate = useNavigate()
     const { id } = useParams()
-    const event = events.find(e => e.id === Number(id)) // params в строки переводит, хоть бы кто то мне это сказал раньше
+    const event = events.find(e => e.id === Number(id))
 
     if (!event) {
         return <h2>Not Found</h2>

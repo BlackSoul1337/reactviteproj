@@ -9,7 +9,7 @@ function Profile() {
 
   // const rawData = localStorage.getItem("user")
   // const user = rawData ? JSON.parse(rawData) : null
-
+  console.log(user)
   if (!user) {
     return null
   }
