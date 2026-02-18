@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Navigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 function PrivateRoute({children}) {
-    const rawUser = localStorage.getItem("user") // na potom: JSON.stringify(obj) JSON.parse(string)
-
-    const user = JSON.parse(rawUser)
+    const {user} = useContext(AuthContext)
+    // const rawUser = localStorage.getItem("user") // na potom: JSON.stringify(obj) JSON.parse(string)
+    // const user = JSON.parse(rawUser)
 
     if (user) {
         return children;

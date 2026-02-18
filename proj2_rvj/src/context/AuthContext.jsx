@@ -6,6 +6,7 @@ const AuthContext = createContext()
 function AuthProvider({children}) {
     const [user, setUser] = useState(null)
     const navigate = useNavigate()
+    const [bookings, setBookings] = useState([])
 
     useEffect(() => {
         const savedUser = localStorage.getItem("user")
@@ -25,8 +26,32 @@ function AuthProvider({children}) {
         navigate("/login")
     }
 
+    const toggleBooking = (eventId) => {
+        setBookings((prev) => {
+            if (prev.includes(eventId)) {
+                return prev.filter(id => id !== eventId)
+            } else {
+                return [...prev, eventId]
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem(`bookings_${user.login}`, JSON.stringify(bookings))
+        }
+    }, [bookings, user])
+
+    useEffect(() => {
+        if (user) {
+            const saved = localStorage.getItem(`bookings_${user.login}`)
+        } else {
+            setBookings([])
+        }
+    }, [user])
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, bookings, toggleBooking }}>
         {children}
     </AuthContext.Provider>
   )
