@@ -15,10 +15,12 @@ function Profile() {
     <div>
       <h1>Профиль</h1>
       <div>
-        <p>Пользователь : {user.username || user.login}</p> {/* user?.login */}
-        <p>Тип : {user.type}</p>
+        <p>Пользователь: {user.username || user.email}</p>
+        <p>Email: {user.email}</p>
+        {user.phone && <p>Телефон: {user.phone}</p>}
+        {user.type && <p>Тип: {user.type}</p>}
       </div>
-      <button onClick={logout}>logout</button>
+      <button onClick={logout}>Выйти</button>
     </div>
   )
 }
