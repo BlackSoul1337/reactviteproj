@@ -12,10 +12,21 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import { v4 as uuidv4 } from 'uuid'
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15m
+    max: 100
+});
 
 const app = express()
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json())
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}));
+app.use("/api/", limiter);
 
 const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
@@ -115,6 +126,9 @@ app.get('/api/users/activate/:link', async (req, res) => {
 app.post('/api/users/login', async (req, res) => {
     try {
         const { email, password } = req.body
+        if (typeof email !== "string" || typeof password !== "string") {
+            return res.status(400).json({message: "invalid input format"})
+        }
         const user = await User.findOne({ email })
         if (!user) {
             return res.status(404).json({ message: 'user not found' })
